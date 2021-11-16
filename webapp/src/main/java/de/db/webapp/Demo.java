@@ -27,15 +27,5 @@ public class Demo {
         System.out.println(translator.translate(message));
     }
 
-    public static interface PersonenRepository extends CrudRepository<PersonEntity, String> {
 
-        Iterable<PersonEntity> findByVorname(String vorname);
-        Iterable<PersonEntity> herbert();
-
-        @Query("from PersonEntity")
-        Iterable<PersonEntity> fritz();
-
-        @Query("update PersonEntity set vorname=:vorname") // Patch
-        void updateVorname(String vorname);
-    }
 }
