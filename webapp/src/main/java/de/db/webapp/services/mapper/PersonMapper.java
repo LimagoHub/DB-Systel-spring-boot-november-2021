@@ -1,4 +1,4 @@
-package de.db.webapp.services;
+package de.db.webapp.services.mapper;
 
 import de.db.webapp.repositories.entities.PersonEntity;
 import de.db.webapp.services.models.Person;

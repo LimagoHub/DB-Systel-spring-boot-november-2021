@@ -1,0 +1,6 @@
+#FileLock
+#Tue Nov 16 16:11:10 CET 2021
+server=192.168.2.40\:54525
+hostName=Kepler.fritz.box
+method=file
+id=17d294d49f6ee5acdc384744477b6efceb416b166fb

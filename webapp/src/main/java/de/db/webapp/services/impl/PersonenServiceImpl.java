@@ -1,7 +1,7 @@
 package de.db.webapp.services.impl;
 
 import de.db.webapp.repositories.PersonenRepository;
-import de.db.webapp.services.PersonMapper;
+import de.db.webapp.services.mapper.PersonMapper;
 import de.db.webapp.services.PersonenService;
 import de.db.webapp.services.PersonenServiceException;
 import de.db.webapp.services.models.Person;
