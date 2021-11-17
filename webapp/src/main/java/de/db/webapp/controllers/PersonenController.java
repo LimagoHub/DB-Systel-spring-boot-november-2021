@@ -49,7 +49,7 @@ public class PersonenController {
             @RequestParam (required = false) String nachname
     )throws Exception{
 
-
+        Thread.sleep(500);
 
         return ResponseEntity.ok(mapper.convert(service.findeAlle()));
 
