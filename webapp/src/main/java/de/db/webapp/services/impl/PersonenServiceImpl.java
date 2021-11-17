@@ -7,12 +7,17 @@ import de.db.webapp.services.PersonenServiceException;
 import de.db.webapp.services.models.Person;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 @Service
+@Transactional(propagation = Propagation.REQUIRED, rollbackFor = PersonenServiceException.class, isolation = Isolation.READ_COMMITTED)
 public class PersonenServiceImpl implements PersonenService {
 
 
@@ -25,6 +30,8 @@ public class PersonenServiceImpl implements PersonenService {
         this.mapper = mapper;
         this.antipathen = antipathen;
     }
+
+
 
     /*
             wenn person null -> PSE
@@ -43,6 +50,7 @@ public class PersonenServiceImpl implements PersonenService {
             false bei insert
          */
     @Override
+
     public boolean speichereOderAendere(Person person) throws PersonenServiceException {
         try {
             return speichernImpl(person);
@@ -93,6 +101,7 @@ public class PersonenServiceImpl implements PersonenService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = PersonenServiceException.class, isolation = Isolation.READ_UNCOMMITTED)
     public Optional<Person> findeNachId(String id) throws PersonenServiceException {
         try {
             return repository.findById(id).map(mapper::convert);
