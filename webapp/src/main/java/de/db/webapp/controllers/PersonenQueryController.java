@@ -25,7 +25,7 @@ import java.util.UUID;
 //@RequestScope
 //@SessionScope (Bitte nicht verwenden, wenn Skalierbarkeit und Hochverfügbarkeit gewünscht)
 @AllArgsConstructor
-public class PersonenController {
+public class PersonenQueryController {
 
     private final PersonenService service;
     private final PersonDTOMapper mapper;
@@ -49,39 +49,13 @@ public class PersonenController {
             @RequestParam (required = false) String nachname
     )throws Exception{
 
-        Thread.sleep(500);
+
 
         return ResponseEntity.ok(mapper.convert(service.findeAlle()));
 
     }
 
-    @DeleteMapping(path="/{id}")
-    public ResponseEntity<Void> delete(@PathVariable  String id)throws Exception{
-        if(service.loesche(id)) {
 
-            return ResponseEntity.ok().build();
-        }
-
-        return ResponseEntity.notFound().build();
-    }
-
-    @PutMapping(path="", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> saveOrUpdate(@Valid @RequestBody PersonDTO dto,  UriComponentsBuilder builder) throws Exception{
-        if(! service.speichereOderAendere(mapper.convert(dto))) {
-            UriComponents component = builder.path("/v1/personen/{id}").buildAndExpand(dto.getId());
-            return ResponseEntity.created(component.toUri()).build();
-        }
-
-        return ResponseEntity.ok().build();
-    }
-
-//    @PostMapping(path="", consumes = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Void> saveOrUpdateNotIdempotent(@RequestBody PersonDTO dto, UriComponentsBuilder builder){
-//        dto.setId(UUID.randomUUID().toString());
-//        // Servicecall
-//        UriComponents component = builder.path("/v1/personen/{id}").buildAndExpand(dto.getId());
-//        return ResponseEntity.created(component.toUri()).build();
-//    }
 
     @PostMapping(value = "/to-upper", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PersonDTO> toUpper(@RequestBody  PersonDTO source) {

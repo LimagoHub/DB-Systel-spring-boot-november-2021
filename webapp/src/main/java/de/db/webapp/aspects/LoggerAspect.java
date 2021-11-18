@@ -26,12 +26,12 @@ public class LoggerAspect {
         log.warn(retval.toString());
     }
 
-    @AfterThrowing(value = "execution(public * de.db.webapp.controllers.PersonenController.*(..))", throwing = "ex")
+    @AfterThrowing(value = "execution(public * de.db.webapp.controllers.PersonenQueryController.*(..))", throwing = "ex")
     public void afterThrowing(JoinPoint joinPoint, Throwable ex) {
         log.error("Fehler {} ist aufgetreten", ex);
     }
 
-    @Around(value = "execution(public * de.db.webapp.controllers.PersonenController.*(..))")
+    @Around(value = "execution(public * de.db.webapp.controllers.PersonenQueryController.*(..))")
     public Object zeitMessung(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{
         Instant start = Instant.now();
         Object result = proceedingJoinPoint.proceed();

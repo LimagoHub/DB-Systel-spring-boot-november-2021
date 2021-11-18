@@ -1,9 +1,11 @@
-package de.db.webapp.services.impl;
+package de.db.webapp.application;
 
 
 import de.db.webapp.repositories.PersonenRepository;
 
 import de.db.webapp.services.PersonenService;
+import de.db.webapp.services.impl.PersonenServiceImpl;
+import de.db.webapp.services.mapper.PersonMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,8 +26,8 @@ public class PersonenConfig {
         return Set.of("Banana", "Strawberry","Cherry", "Raspberry");
     }
 
-//    @Bean
-//    public PersonenService createPersonenService(PersonenRepository repo, PersonMapper mapper, @Qualifier("antipathen") Set<String> antipathen) {
-//        return new PersonenServiceImpl(repo,mapper,antipathen);
-//    }
+    @Bean
+    public PersonenService createPersonenService(PersonenRepository repo, PersonMapper mapper, @Qualifier("antipathen") Set<String> antipathen) {
+        return new PersonenServiceImpl(repo,mapper,antipathen);
+    }
 }

@@ -1,23 +1,16 @@
 package de.db.webapp.services.impl;
 
 import de.db.webapp.repositories.PersonenRepository;
-import de.db.webapp.services.mapper.PersonMapper;
 import de.db.webapp.services.PersonenService;
 import de.db.webapp.services.PersonenServiceException;
+import de.db.webapp.services.mapper.PersonMapper;
 import de.db.webapp.services.models.Person;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import lombok.AllArgsConstructor;
 
-
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-@Service
-@Transactional(propagation = Propagation.REQUIRED, rollbackFor = PersonenServiceException.class, isolation = Isolation.READ_COMMITTED)
+@AllArgsConstructor
 public class PersonenServiceImpl implements PersonenService {
 
 
@@ -25,11 +18,7 @@ public class PersonenServiceImpl implements PersonenService {
     private final PersonMapper mapper;
     private final Set<String> antipathen;
 
-    public PersonenServiceImpl(PersonenRepository repository, PersonMapper mapper,  @Qualifier("antipathen")  Set<String> antipathen) {
-        this.repository = repository;
-        this.mapper = mapper;
-        this.antipathen = antipathen;
-    }
+
 
 
 
@@ -101,7 +90,6 @@ public class PersonenServiceImpl implements PersonenService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = PersonenServiceException.class, isolation = Isolation.READ_UNCOMMITTED)
     public Optional<Person> findeNachId(String id) throws PersonenServiceException {
         try {
             return repository.findById(id).map(mapper::convert);
