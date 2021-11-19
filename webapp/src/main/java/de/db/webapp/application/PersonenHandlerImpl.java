@@ -21,6 +21,11 @@ public class PersonenHandlerImpl implements PersonenHandler {
     @Async
     public void handleSave(PersonDTO dto) throws PersonenServiceException {
         try {
+            // Summ der Async - methoden in console;
+            // foo
+            // bar
+            // summe in console;
+
             service.speichereOderAendere(mapper.convert(dto));
             // Success-Event
         } catch (PersonenServiceException e) {
